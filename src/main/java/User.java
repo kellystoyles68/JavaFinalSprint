@@ -1,4 +1,4 @@
-package src.main.java;
+package src.main.java.com.example.ecommerce
 
 public class User {
     private String username;

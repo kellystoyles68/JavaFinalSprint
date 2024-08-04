@@ -1,4 +1,4 @@
-package src.main.java;
+package src.main.java.com.example.ecommerce
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,20 +10,34 @@ public class ProductService {
         this.productDAO = productDAO;
     }
 
-    public void addProduct(String name, double price, int quantity, int sellerId) throws SQLException {
-        Product product = new Product(0, name, price, quantity, sellerId);
-        productDAO.addProduct(product);
+
+   // public void addProduct(String name, double price, int quantity, int sellerId) throws SQLException {
+   //     Product product = new Product(0, name, price, quantity, sellerId);
+   //     productDAO.addProduct(product);
+   // }
+
+    public List<Product> viewProduct(String name) throws SQLException {
+        return productDAO.getProduct(name);
     }
 
-    public List<Product> getAllProducts() throws SQLException {
+    public List<Product> AllProducts() throws SQLException {
         return productDAO.getAllProducts();
     }
 
-    public List<Product> getProductsBySellerId(int sellerId) throws SQLException {
+  //  public List<Product> getProductsBySellerId(int sellerId) throws SQLException {
+   //     return productDAO.getProductsBySellerId(sellerId);
+   // }
+
+    public List<Product> listSellerProducts(int sellerId) throws SQLException {
         return productDAO.getProductsBySellerId(sellerId);
     }
 
-    public void updateProduct(Product product) throws SQLException {
+
+   // public void updateProduct(Product product) throws SQLException {
+   //     productDAO.updateProduct(product);
+   // }
+   
+   public void modifyProduct(Product product) throws SQLException {
         productDAO.updateProduct(product);
     }
 
@@ -31,7 +45,5 @@ public class ProductService {
         productDAO.deleteProduct(id);
     }
 
-    public List<Product> searchProductsByName(String name) throws SQLException {
-        return productDAO.searchProductsByName(name);
-    }
+
 }

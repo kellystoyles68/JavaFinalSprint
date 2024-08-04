@@ -1,4 +1,8 @@
-package src.main.java;
+package src.main.java.com.example.ecommerce;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
 
 public class Product {
     private int id;
@@ -23,8 +27,8 @@ public class Product {
         }
     
         //**Set Product */ 
-        public void setId(int product) {
-            this.id = product;
+        public void setId(int id) {
+            this.id = id;
         }
     
         //**Get Name */ 
@@ -68,6 +72,29 @@ public class Product {
             this.sellerId = sellerId;  
          }
 
-         //** Update Details of Products */
-         
+    public void updateProduct(Scanner scanner) {
+        System.out.print("Enter product ID to update: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter new product name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter new product price: ");
+        double price = scanner.nextDouble();
+        System.out.print("Enter new product quantity: ");
+        int quantity = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter sellerId: ");
+        int sellerId = scanner.nextInt();
+        scanner.nextLine();
+
+        try {
+            product product = new Product(id, name, price, quantity, sellerId;
+            productService.updateProduct(product);
+            System.out.println("Product updated successfully!");
+        } catch (SQLException e) {
+            System.out.println("Error updating product: " + e.getMessage());
+        }
+    }
+
+   
 }
