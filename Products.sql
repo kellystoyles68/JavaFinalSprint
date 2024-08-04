@@ -1,5 +1,4 @@
-insert into Products (productID, prodName, price, quantity, sellerId) values 
-	('3222Fw', 'OK Computer', '$26.77', 10, 16),
+('3222Fw', 'OK Computer', '$26.77', 10, 16),
 ('8578VK', 'Led Zeppelin IV', '$26.29', 1, 3),
  ('2448js', 'Dark Side of the Moon', '$13.06', 7, 10),
  ('6859sq', 'The Bends', '$30.99', 7, 14),
