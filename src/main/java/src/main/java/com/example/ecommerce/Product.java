@@ -1,6 +1,7 @@
 package src.main.java.com.example.ecommerce;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
 
@@ -88,13 +89,26 @@ public class Product {
         scanner.nextLine();
 
         try {
-            product product = new Product(id, name, price, quantity, sellerId;
-            productService.updateProduct(product);
+            Product product = new Product(id, name, price, quantity, sellerId);
+            //ProductService productService = new ProductService(new ProductDAO(connection)); 
+            //ProductService.updateProduct(product);
+            Statement statement = connection.createStatement();
+            String updateQuery = "UPDATE Products SET column1 = 'new_value' WHERE id = 1";
+            int rowsUpdated = statement.executeUpdate(updateQuery);
+            System.out.println(rowsUpdated + " row(s) updated.");
             System.out.println("Product updated successfully!");
+            statement.close();
+            connection.close();
+
+
+
         } catch (SQLException e) {
             System.out.println("Error updating product: " + e.getMessage());
         }
     }
+
+
+
 
    
 }

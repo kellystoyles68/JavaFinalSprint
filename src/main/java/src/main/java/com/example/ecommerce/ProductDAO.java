@@ -1,20 +1,26 @@
 package src.main.java.com.example.ecommerce;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ProductDAO {
     private static ProductDAO productService;
+    private static ProductService product;
     private Connection connection;
 
     public ProductDAO(Connection connection) {
         this.connection = connection;
-    }
+        this.productService = new Product(this); // Initialize productService
+       }
 
     public void createProduct(Product product) throws SQLException {
-        String query = "INSERT INTO products (name, price, quantity, sellerId) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Products (name, price, quantity, sellerId) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, product.getName());
             pstmt.setDouble(2, product.getPrice());
@@ -78,11 +84,14 @@ public class ProductDAO {
             }
         }
         return products;
-    }
-
-    public List<Product> getAllProducts() throws SQLException {
+    }   
+    
+    public ResultSet executeQuery(String sql)
+                                throws SQLException {
+        return null;
+    }    public List<Product> getAllProducts() throws SQLException {
         List<Product> products = new ArrayList<>();
-        String query = "SELECT * FROM products";
+        String query = "SELECT * FROM Products";
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -142,6 +151,10 @@ public class ProductDAO {
             System.out.println("Error updating product: " + e.getMessage());
         }
 }
+
+    void addProduct(Product product) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
     
    

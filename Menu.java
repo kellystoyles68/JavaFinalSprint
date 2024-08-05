@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Menu {
 
     private Scanner scanner;
@@ -7,14 +9,14 @@ public class Menu {
 }
     public void displayMainMenu() {
         while (true){
-            Sysytmen.out.println("Welcome to SpinTop Records E-Commerce Platform!");
+            System.out.println("Welcome to SpinTop Records E-Commerce Platform!");
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3. Exit");
             System.out.println("Please choose an option: ");
             int option = scanner.nextInt();
             
-            switch (choice) {
+            switch (option) {
                 case 1:
                 /** Call register method */
                 System.out.println ("Register Selected:");
@@ -28,7 +30,7 @@ public class Menu {
                 System.out.println ("Exiting!");
                 return;
                 default:
-                System.out.println ("Invalid option selected. Please try again.")
+                System.out.println ("Invalid option selected. Please try again.");
 
             }
            

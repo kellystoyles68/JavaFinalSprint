@@ -1,4 +1,4 @@
-package src.main.java.com.example.ecommerce
+package src.main.java.com.example.ecommerce;
 
 public class User {
     private String username;
@@ -62,3 +62,4 @@ public class User {
         this.id = id;
     }
 }
+

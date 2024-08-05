@@ -1,7 +1,6 @@
 package src.main.java.com.example.ecommerce;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
@@ -14,15 +13,19 @@ public class ECommercePlatform {
 
     public static void main(String[] args) {
         try {
-            Class.forName("org.postgresql.Driver");
+            connection = getConnection();
+            DatabaseSetup.executeSqlFile(connection, "./src/databases/createDatabaseSpinTop_Records.sql");
+            DatabaseSetup.executeSqlFile(connection, "./src/databases/createTableProducts.sql");
+            DatabaseSetup.executeSqlFile(connection, "./src/databases/createTableUsers.sql");
+            DatabaseSetup.executeSqlFile(connection, "./src/databases/Products.sql");
+            DatabaseSetup.executeSqlFile(connection, "./src/databases/Users.sql");
 
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ecommerce", "user", "password");
             userService = new UserService(new UserDAO(connection));
             productService = new ProductService(new ProductDAO(connection));
             Scanner scanner = new Scanner(System.in);
 
             while (true) {
-                System.out.println("Welcome to the E-Commerce Platform");
+                System.out.println("Welcome to SpinTop Records E-Commerce Platform");
                 System.out.println("1. Register");
                 System.out.println("2. Login");
                 System.out.println("3. Exit");
@@ -30,22 +33,25 @@ public class ECommercePlatform {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
 
-                if (choice == 1) {
-                    registerUser(scanner);
-                } else if (choice == 2) {
-                    loginUser(scanner);
-                } else {
-                    break;
+                switch (choice) {
+                    case 1:
+                        registerUser(scanner);
+                        break;
+                    case 2:
+                        loginUser(scanner);
+                        break;
+                    case 3:
+                        System.out.println("Exiting...");
+                        return;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
                 }
-            }
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+                System.out.println("Error logging in: " + e.getMessage());
         }
     }
 
-    private static void registerUser(Scanner scanner) {
+    public static registerUser(Scanner scanner) {
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
         System.out.print("Enter password: ");
@@ -84,12 +90,18 @@ public class ECommercePlatform {
     }
 
     private static void showMenu(Scanner scanner) {
-        if (currentUser.getRole().equals("Buyer")) {
-            showBuyerMenu(scanner);
-        } else if (currentUser.getRole().equals("Seller")) {
-            showSellerMenu(scanner);
-        } else if (currentUser.getRole().equals("Admin")) {
-            showAdminMenu(scanner);
+        switch (currentUser.getRole()) {
+            case "Buyer":
+                showBuyerMenu(scanner);
+                break;
+            case "Seller":
+                showSellerMenu(scanner);
+                break;
+            case "Admin":
+                showAdminMenu(scanner);
+                break;
+            default:
+                System.out.println("Invalid role.");
         }
     }
 
@@ -103,19 +115,23 @@ public class ECommercePlatform {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            if (choice == 1) {
-                viewProducts();
-            } else if (choice == 2) {
-                searchProduct(scanner);
-            } else if (choice == 3) {
-                break;
-            } else {
-                System.out.println("Invalid choice. Please try again.");
+            switch (choice) {
+                case 1:
+                    getAllProducts();
+                    break;
+                case 2:
+                    searchProduct(scanner);
+                    break;
+                case 3:
+                    logout();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
 
-    private static void viewProducts() {
+    private static void getAllProducts() {
         try {
             List<Product> products = productService.getAllProducts();
             for (Product product : products) {
@@ -155,18 +171,24 @@ public class ECommercePlatform {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            if (choice == 1) {
-                addProduct(scanner);
-            } else if (choice == 2) {
-                viewMyProducts(scanner);
-            } else if (choice == 3) {
-                updateProduct(scanner);
-            } else if (choice == 4) {
-                deleteProduct(scanner);
-            } else if (choice == 5) {
-                break;
-            } else {
-                System.out.println("Invalid choice. Please try again.");
+            switch (choice) {
+                case 1:
+                    addProduct(scanner);
+                    break;
+                case 2:
+                    viewMyProducts(scanner);
+                    break;
+                case 3:
+                    updateProduct(scanner);
+                    break;
+                case 4:
+                    deleteProduct(scanner);
+                    break;
+                case 5:
+                    logout();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -244,16 +266,21 @@ public class ECommercePlatform {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            if (choice == 1) {
-                viewAllUsers();
-            } else if (choice == 2) {
-                deleteUser(scanner);
-            } else if (choice == 3) {
-                viewAllProducts();
-            } else if (choice == 4) {
-                break;
-            } else {
-                System.out.println("Invalid choice. Please try again.");
+            switch (choice) {
+                case 1:
+                    viewAllUsers();
+                    break;
+                case 2:
+                    deleteUser(scanner);
+                    break;
+                case 3:
+                    viewAllProducts();
+                    break;
+                case 4:
+                    logout();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -281,14 +308,8 @@ public class ECommercePlatform {
         }
     }
 
-    private static void viewAllProducts() {
-        try {
-            List<Product> products = productService.getAllProducts();
-            for (Product product : products) {
-                System.out.println(product.getId() + " - " + product.getName() + " - $" + product.getPrice() + " - " + product.getQuantity() + " available");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error fetching products: " + e.getMessage());
-        }
+    private static void logout() {
+        currentUser = null;
+        System.out.println("Logged out successfully.");
     }
-}
+}}}

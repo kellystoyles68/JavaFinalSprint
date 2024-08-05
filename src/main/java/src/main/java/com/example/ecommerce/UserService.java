@@ -6,17 +6,26 @@ import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserService {
-    private UserDAO userDAO;
+    private  UserService userDAO;
 
-    public UserService(UserDAO userDAO) {
+    public UserService(UserService userDAO) {
         this.userDAO = userDAO;
     }
 
+    public UserService(UserDAO userDAO2) {
+        //TODO Auto-generated constructor stub
+    }
+
+    private void addUser(Object user) {
+        throw new UnsupportedOperationException("Unimplemented method 'addUser'");
+    }
+
     public void registerUser(String username, String password, String email, String role) throws SQLException {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        User user = new User(username, hashedPassword, email, role);
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12)); // Use 12 salt rounds
+        Object user = new Object ();
         userDAO.addUser(user);
     }
+
 
     public User authenticateUser(String username, String password) throws SQLException {
         User user = userDAO.getUserByUsername(username);
