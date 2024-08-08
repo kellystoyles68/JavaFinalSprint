@@ -1,0 +1,38 @@
+Ignore the errors or such regarding Bcrypt especially in the UserService.java these error will fix in the compiled .class versons of the files
+
+If there is no folder called Class-Run in the root directory create one but dont manually add any files
+
+Set up your SQL database with some testing data 
+create the tables via the create_table.sql using the query tool
+and you can insert the testing data with the Testing_data.sql 
+Both these files can be found in the sql folder
+
+since for the test data the hashed passwords are being interted into the database the passwords for testing purpose for buyer1, seller1, and admin1 is "password" the same for each one
+
+Set Enviroment variables in the root directory via the terminal you are running the program with
+
+To set enviroment variables depending on the OS/terminal
+Replace the variables with the needed values
+
+Powershell (Windows): 
+$env:DB_URL="jdbc:postgresql://localhost:5432/yourdbname"
+$env:DB_USER="yourdbuser"
+$env:DB_PASSWORD="yourdbpassword"
+
+Command Prompt (Windows):
+set DB_URL=jdbc:postgresql://localhost:5432/yourdbname
+set DB_USER=yourdbuser
+set DB_PASSWORD=yourdbpassword
+
+Linux/MacOS:
+export DB_URL="jdbc:postgresql://localhost:5432/yourdbname"
+export DB_USER="yourdbuser"
+export DB_PASSWORD="yourdbpassword"
+
+After Setting the enviroment variables Run the two follwoing commands in the same enviroment/directory. The first command is to complie all the java files to .class files and the second command runs the Main.class file to start the program
+
+javac -d Class-Run -cp "libs/jbcrypt-0.4.jar;libs/postgresql-42.7.3.jar" *.java
+
+java -cp "Class-Run;libs/jbcrypt-0.4.jar;libs/postgresql-42.7.3.jar" Main
+
+if you make any changes and want to test again you need to delete all the .class files in the Class-Run folder and save the .java files you changed then rerun the above two commands

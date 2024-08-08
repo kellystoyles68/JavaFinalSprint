@@ -1,11 +1,11 @@
-package src.main.java;
-
 public class User {
+    private int id;
     private String username;
     private String password;
     private String email;
     private String role;
-    private int id;
+
+    public User() {}
 
     public User(String username, String password, String email, String role) {
         this.username = username;
@@ -14,12 +14,12 @@ public class User {
         this.role = role;
     }
 
-    public User(int id, String username, String password, String email, String role) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
     }
 
     public String getUsername() {
@@ -52,13 +52,5 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }
