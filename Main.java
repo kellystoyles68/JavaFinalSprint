@@ -167,24 +167,38 @@ public class Main {
                 case 1:
                     System.out.print("Enter product name: ");
                     String name = scanner.nextLine();
+
+                    double price = 0;
                     while (true) {
                         System.out.print("Enter product price: ");
                         double priceIn = scanner.nextDouble();
                         if (priceIn > 0) {
-                            double price = priceIn;
+                            price = priceIn;
                             break;
                         } else {
                             System.out.println("Price must be greater than 0. Please enter a valid price.");
                         }
                     }
-                    System.out.print("Enter product quantity: ");
-                    int quantity = scanner.nextInt();
+
+                    int quantity = 0;
+                    while (true) {
+                        System.out.print("Enter product quantity: ");
+                        int quantityIn = scanner.nextInt();
+                        if (quantityIn > 0) {
+                            quantity = quantityIn;
+                            break;
+                        } else {
+                            System.out.println("Quantity must be greater than 0. Please enter a valid quantity.");
+                        }
+                    }
+
                     scanner.nextLine();
 
                     int sellerId = loggedInUser.getId();
                     productService.addProduct(name, price, quantity, sellerId);
                     System.out.println("Product added successfully!");
                     break;
+
                 case 2:
                     System.out.print("Enter product ID to update: ");
                     int productId = scanner.nextInt();

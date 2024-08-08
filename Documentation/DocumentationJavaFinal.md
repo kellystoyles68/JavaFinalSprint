@@ -6,17 +6,10 @@
     - Explanation of all the Classes and their Working use
     - Steps to Start the Application
 2. [Development Documentation](#development-documentation)
-    - Javadocs
     - Source Code Directory Structure Description
-    - Build Process
-    - Compiler Time Dependencies
-    - Development Standards
-    - Database Setup for Development
-    - Retrieving Source Code from the Repository
 3. [Deployment Documentation](#deployment-documentation)
     - Installation Manual
     - Step-by-Step Installation Guide
-    - Troubleshooting
 
 ---
 
@@ -55,14 +48,14 @@ This application is for general E-commerce use in a Java console-based platform.
         - Sellers Can add a new product with the values of (Name, Price, Quantity, and their seller id is added to the product).
         - Sellers can update an existing product and change the follwoing values (Name, Price, Quantity).
         - Sellers can delete a product.
-        - `listProducts()`: Allows sellers to view their listed products.
+        - Sellers can view their listed products.
 
 4. **Admin (inherits from User)**
     - **Description**: Represents an admin user.
     - **Methods**:
-        - `viewAllUsers()`: Allows admins to view all registered users.
-        - `deleteUser(int id)`: Allows admins to delete a user.
-        - `viewAllProducts()`: Allows admins to view all products in the system.
+        - Admins can view all registered users.
+        - Admins can delete a user via the user id.
+        - Admins can view all products in the system.
 
 5. **UserDAO**
     - **Description**: Data Access Object used to handle CRUD operations for users.
@@ -126,7 +119,7 @@ This application is for general E-commerce use in a Java console-based platform.
 ### Steps to Start the Application
 
 1. **Clone the Repository**
-    - Find the repository on GitHub.com.
+    - Find the repository on GitHub.com. (https://github.com/kellystoyles68/JavaFinalSprint)
     - Copy the repository URL.
     - Use the `git clone` command followed by the URL you copied earlier.
 
@@ -136,31 +129,38 @@ This application is for general E-commerce use in a Java console-based platform.
 3. **Compile the Project**
     - In your IDE, build the project to compile the source code.
 
-4. **Run the Application**
-    - Locate the main class (e.g., `Main.java`) and run it to start the application.
+4. **Set up Enviroment Variables**
+    - Depending on your OS/Terminal it will be different but add the respoctive commands to yuor terminal in the project root directory
 
-5. **Interact with the Application**
-    - The application will start in the console.
-    - Follow the on-screen prompts to register, log in, and perform various actions based on your role (buyer, seller, or admin).
+    - Powershell (Windows): 
+        - $env:DB_URL="jdbc:postgresql://localhost:5432/yourdbname"
+        - $env:DB_USER="yourdbuser"
+        - $env:DB_PASSWORD="yourdbpassword"
+
+    - Command Prompt (Windows):
+        - set DB_URL=jdbc:postgresql://localhost:5432/yourdbname
+        - set DB_USER=yourdbuser
+        - set DB_PASSWORD=yourdbpassword
+
+    - Linux/MacOS:
+        - export DB_URL="jdbc:postgresql://localhost:5432/yourdbname"
+        - export DB_USER="yourdbuser"
+        - export DB_PASSWORD="yourdbpassword"
+
+5. **Compile & Run**
+    - **Paste the following two commands in the same terminal as you enviroment variables**
+    - javac -d Class-Run -cp "libs/jbcrypt-0.4.jar;libs/postgresql-42.7.3.jar" *.java
+    - java -cp "Class-Run;libs/jbcrypt-0.4.jar;libs/postgresql-42.7.3.jar" Main
 
 ---
 
 ## Development Documentation
 
-### Javadocs
-Javadocs are automatically generated documentation from the source code comments. They provide detailed descriptions of classes, methods, and fields.
-
-To generate Javadocs:
-```sh
-javadoc -d docs $(find src -name "*.java")
-```
-The generated documentation will be located in the `docs` directory.
-
 ### Source Code Directory Structure
 The source code is organized in the following structure:
 
 ```
-project-root/
+JAVAFINALSPRINT/
 │
 ├── User.java
 ├── Buyer.java
@@ -172,76 +172,21 @@ project-root/
 ├── ProductDAO.java
 ├── ProductService.java
 ├── Main.java
+├── Class-Run/
+│   └── FolderKeep.txt
 ├── database/
-│   ├── schema.sql
-│   └── data.sql
+│   ├── create_table.sql
+│   └── Cascade_Delete.sql
+├── documentation/
+│   ├── CLASS SYSTEMS DIAGRAM.pdf
+│   ├── DocumentationJavaFinal.md
+│   └── Development_Running.txt
 ├── libs/
+│   ├── jbcrypt-0.4.jar
+│   └── postgresql-42.7.3.jar
+├── .gitignore
 └── README.md
 ```
-
-### Build Process
-#### Prerequisites
-- Java Development Kit (JDK) 8 or higher
-- PostgreSQL Database
-- Git for version control
-
-#### Steps to Build
-1. **Open the project root directory:**
-    ```sh
-    cd project-root
-    ```
-
-2. **Compile the project:**
-    ```sh
-    javac -cp "libs/*" *.java
-    ```
-
-### Compiler Time Dependencies
-- JDK 8 or higher
-- PostgreSQL JDBC Driver
-- BCrypt library for password hashing
-
-### Development Standards
-- **Style**: Use the Google Java Style Guide.
-- **Version Control**: Use Git and follow the Git Flow method.
-- **Testing**: Always test your code with JUnit.
-- **Documentation**: Explain all public parts of your code using Javadocs.
-
-### Database Setup for Development
-#### Prerequisites
-- PostgreSQL installed and running
-
-#### Steps to Set Up
-1. **Create a new database:**
-    ```sql
-    CREATE DATABASE ecommerce
-
-_db;
-    ```
-
-2. **Run SQL scripts to set up the database structure and initial data:**
-    ```sh
-    psql -U <your_username> -d ecommerce_db -f database/schema.sql
-    psql -U <your_username> -d ecommerce_db -f database/data.sql
-    ```
-
-### Retrieving Source Code from the Repository
-1. **Clone the repository:**
-    ```sh
-    git clone https://github.com/yourusername/yourproject.git
-    ```
-
-2. **Navigate to the project directory:**
-    ```sh
-    cd yourproject
-    ```
-
-3. **Pull updates from the repository:**
-    ```sh
-    git pull origin main
-    ```
-
----
 
 ## Deployment Documentation
 
@@ -260,76 +205,55 @@ Before you begin, ensure you have the following installed on your machine:
     - Open your terminal or command prompt.
     - Clone the repository using Git:
       ```sh
-      git clone <https://github.com/yourusername/yourproject.git>
+      git clone <https://github.com/kellystoyles68/JavaFinalSprint.git>
       ```
 
 2. **Navigate to the project directory:**
     ```sh
-    cd <project_directory>
+    cd <JAVAFINALSPRINT>
     ```
 
 3. **Set Up the PostgreSQL Database**
     - **Create a Database:**
         - Open the PostgreSQL command-line interface (psql) or use a GUI tool like pgAdmin.
         - Create a new database:
-          ```sql
-          CREATE DATABASE ecommerce_db;
-          ```
+        CREATE TABLE Users (
+            id SERIAL PRIMARY KEY,
+            username VARCHAR(50) UNIQUE NOT NULL,
+            password VARCHAR(255) NOT NULL,
+            email VARCHAR(100) NOT NULL,
+            role VARCHAR(20) NOT NULL
+        );
+        
+        CREATE TABLE Products (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            price DECIMAL(10, 2) NOT NULL,
+            quantity INT NOT NULL,
+            seller_id INT REFERENCES Users(id)
+        );
 
-    - **Run SQL Scripts:**
-        - In the project directory, locate the `database` folder containing SQL scripts.
-        - Execute the provided SQL scripts to create and populate the necessary tables:
-          ```sh
-          psql -U <your_username> -d ecommerce_db -f database/schema.sql
-          psql -U <your_username> -d ecommerce_db -f database/data.sql
-          ```
+4. **Set Up Enviroment Varriables**
+    - Depending on your OS/Terminal it will be different but add the respoctive commands to yuor terminal in the project root directory
 
-4. **Configure Database Connection**
-    - Open the project in your preferred Java IDE.
-    - Locate the database configuration in the code (usually in `UserDAO` and `ProductDAO` classes).
-    - Update the database URL, username, and password to match your PostgreSQL setup:
-      ```java
-      private final String URL = System.getenv("DB_URL");
-      private final String USER = System.getenv("DB_USER");
-      private final String PASSWORD = System.getenv("DB_PASSWORD");
-      ```
+    - Powershell (Windows): 
+        - $env:DB_URL="jdbc:postgresql://localhost:5432/yourdbname"
+        - $env:DB_USER="yourdbuser"
+        - $env:DB_PASSWORD="yourdbpassword"
+
+    - Command Prompt (Windows):
+        - set DB_URL=jdbc:postgresql://localhost:5432/yourdbname
+        - set DB_USER=yourdbuser
+        - set DB_PASSWORD=yourdbpassword
+
+    - Linux/MacOS:
+        - export DB_URL="jdbc:postgresql://localhost:5432/yourdbname"
+        - export DB_USER="yourdbuser"
+        - export DB_PASSWORD="yourdbpassword"
 
 5. **Build the Project**
-    - In your IDE, build the project to compile the source code. This step may vary depending on your IDE:
-        - **IntelliJ IDEA**: Use the "Build" menu and select "Build Project".
-        - **Eclipse**: Use the "Project" menu and select "Build All".
-        - **VS Code**: Use the terminal to run:
-          ```sh
-          javac -cp "libs/*" *.java
-          ```
+    - javac -d Class-Run -cp "libs/jbcrypt-0.4.jar;libs/postgresql-42.7.3.jar" *.java
+    
 
 6. **Run the Application**
-    - In your IDE, locate the main class (e.g., `Main.java`).
-    - Run the main class to start the application. This step may vary depending on your IDE:
-        - **IntelliJ IDEA**: Right-click the main class and select "Run".
-        - **Eclipse**: Right-click the main class and select "Run As" > "Java Application".
-        - **VS Code**: Use the terminal to run:
-          ```sh
-          java -cp ".;libs/*" Main
-          ```
-
-### Troubleshooting
-1. **Database Connection Issues:**
-    - Ensure your PostgreSQL server is running.
-    - Verify the database URL, username, and password in the configuration file.
-
-2. **Compilation Errors:**
-    - Ensure all dependencies are correctly set up in your IDE.
-    - Check for any missing or incorrect import statements.
-
-3. **Runtime Errors:**
-    - Review the console output for error messages.
-    - Ensure all required tables and data are present in the database.
-
-### Additional Notes
-- Make sure to periodically pull updates from the repository to stay up-to-date with any changes or bug fixes.
-- If you encounter any issues that you cannot resolve, refer to the project documentation.
-
----
-
-By following this guide, you should be able to successfully install, configure, and run our Java Console-Based E-Commerce Platform.
+    - java -cp "Class-Run;libs/jbcrypt-0.4.jar;libs/postgresql-42.7.3.jar" Main
