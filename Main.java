@@ -167,8 +167,16 @@ public class Main {
                 case 1:
                     System.out.print("Enter product name: ");
                     String name = scanner.nextLine();
-                    System.out.print("Enter product price: ");
-                    double price = scanner.nextDouble();
+                    while (true) {
+                        System.out.print("Enter product price: ");
+                        double priceIn = scanner.nextDouble();
+                        if (priceIn > 0) {
+                            double price = priceIn;
+                            break;
+                        } else {
+                            System.out.println("Price must be greater than 0. Please enter a valid price.");
+                        }
+                    }
                     System.out.print("Enter product quantity: ");
                     int quantity = scanner.nextInt();
                     scanner.nextLine();
